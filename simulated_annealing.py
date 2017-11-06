@@ -1,7 +1,8 @@
 import math
 import random
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import tsp_utils
+import visualizer
 
 class SimulatedAnnealing():
     def __init__(self, coords, temp, alpha, stopping_temp, stopping_iter):
@@ -66,17 +67,19 @@ class SimulatedAnnealing():
         print('Best fitness obtained: ', self.min_weight)
         print('Improvement over greedy heuristic: ', round(( self.initial_weight - self.min_weight) / (self.initial_weight),4))
 
-    # def visualizeRotes(self):
-    #     '''
-    #     Visualize the TSP route with matplotlib
-    #     '''
-    #     visualize_tsp.plotTSP([self.best_solution], self.coords)
-    #
-    # def plotLearning(self):
-    #     '''
-    #     Plot the fitness through iterations
-    #     '''
-    #     plt.plot([i for i in range(len(self.fitness_list))], self.fitness_list)
-    #     plt.ylabel('Fitness')
-    #     plt.xlabel('Iteration')
-    #     plt.show()
+
+    def visualizeRotes(self):
+        '''
+        Visualize the TSP route with matplotlib
+        '''
+        visualizer.plotTSP([self.best_solution], self.coords)
+
+
+    def plotLearning(self):
+        '''
+        Plot the fitness through iterations
+        '''
+        plt.plot([i for i in range(len(self.weight_list))], self.weight_list)
+        plt.ylabel('Weight')
+        plt.xlabel('Iteration')
+        plt.show()

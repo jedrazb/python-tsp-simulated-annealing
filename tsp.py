@@ -5,7 +5,7 @@ def main():
 
     nodes = NodeGenerator(100, 100, 30).generate()
 
-    temp = 6
+    temp = 1000
     stopping_temp = 0.00000001
     alpha = 0.9995
     stopping_iter = 100000000
@@ -13,6 +13,8 @@ def main():
     sa = SimulatedAnnealing(nodes, temp, alpha, stopping_temp, stopping_iter)
 
     sa.anneal()
+    sa.visualizeRotes()
+    sa.plotLearning()
 
 
 if __name__ == "__main__": main()
