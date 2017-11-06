@@ -1,9 +1,10 @@
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
-def animateTSP(paths, points, num_iters=1):
+def animateTSP(paths, points):
 
-    print(len(paths))
+    ''' let's have approx 2500 frames for animation '''
+    key_frames_mult = len(paths) // 2500
 
     fig, ax = plt.subplots()
 
@@ -30,15 +31,15 @@ def animateTSP(paths, points, num_iters=1):
 
     def update(frame):
         x = []; y = []
-        x.append(points[paths[frame * 20][-1]][0])
-        y.append(points[paths[frame * 20][-1]][1])
-        for i in paths[frame * 20]:
+        x.append(points[paths[frame][-1]][0])
+        y.append(points[paths[frame][-1]][1])
+        for i in paths[frame]:
             x.append(points[i][0])
             y.append(points[i][1])
 
         line.set_data(x, y)
         return line
 
-    ani = FuncAnimation(fig, update, frames=(len(paths) // 20), init_func=init, interval=3)
+    ani = FuncAnimation(fig, update, frames=range(0, len(paths), key_frames_mult), init_func=init, interval=2, repeat=False)
 
     plt.show()
