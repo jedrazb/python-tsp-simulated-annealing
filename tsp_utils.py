@@ -8,15 +8,15 @@ def vectorToMatrix(coords):
 
 
 def nearestNeighbourSolution(dist_matrix):
-    node = random.choice(list(range(len(dist_matrix))))
+    node = random.randrange(len(dist_matrix))
     result = [node]
 
     nodes_to_visit = list(range(len(dist_matrix)))
     nodes_to_visit.remove(node)
 
     while nodes_to_visit:
-        nearest_node = min([dist_matrix[node][j] for j in nodes_to_visit])
-        node = dist_matrix[node].index(nearest_node)
+        nearest_node = min([(dist_matrix[node][j], j) for j in nodes_to_visit], key=lambda x: x[0])
+        node = nearest_node[1]
         nodes_to_visit.remove(node)
         result.append(node)
 
