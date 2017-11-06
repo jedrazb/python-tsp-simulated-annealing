@@ -3,7 +3,7 @@ from simulated_annealing import SimulatedAnnealing
 
 def main():
 
-    nodes = NodeGenerator(100, 100, 30).generate()
+    nodes = NodeGenerator(200, 200, 70).generate()
 
     temp = 1000
     stopping_temp = 0.00000001
@@ -13,8 +13,9 @@ def main():
     sa = SimulatedAnnealing(nodes, temp, alpha, stopping_temp, stopping_iter)
 
     sa.anneal()
-    sa.visualizeRotes()
-    sa.plotLearning()
+
+    sa.animateSolutions()
+
 
 
 if __name__ == "__main__": main()

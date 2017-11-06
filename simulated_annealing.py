@@ -2,7 +2,7 @@ import math
 import random
 import matplotlib.pyplot as plt
 import tsp_utils
-import visualizer
+import animated_visualizer
 
 class SimulatedAnnealing():
     def __init__(self, coords, temp, alpha, stopping_temp, stopping_iter):
@@ -17,6 +17,8 @@ class SimulatedAnnealing():
         self.dist_matrix = tsp_utils.vectorToMatrix(coords)
         self.curr_solution = tsp_utils.nearestNeighbourSolution(self.dist_matrix)
         self.best_solution = self.curr_solution
+
+        self.solution_history = [self.curr_solution]
 
         self.curr_weight = self.weight(self.curr_solution)
         self.initial_weight = self.curr_weight
@@ -51,7 +53,6 @@ class SimulatedAnnealing():
                 self.curr_weight = candidate_weight
                 self.curr_solution = candidate
 
-
     def anneal(self):
         while self.temp >= self.stopping_temp and self.iteration < self.stopping_iter:
             candidate = list(self.curr_solution)
@@ -59,26 +60,21 @@ class SimulatedAnnealing():
             i = random.randint(0, self.sample_size - l)
             candidate[i : (i+l)] = reversed(candidate[i : (i+l)])
             self.accept(candidate)
+
             self.temp *= self.alpha
             self.iteration += 1
 
             self.weight_list.append(self.curr_weight)
+            self.solution_history.append(self.curr_solution)
+
 
         print('Best fitness obtained: ', self.min_weight)
         print('Improvement over greedy heuristic: ', round(( self.initial_weight - self.min_weight) / (self.initial_weight),4))
 
-
-    def visualizeRotes(self):
-        '''
-        Visualize the TSP route with matplotlib
-        '''
-        visualizer.plotTSP([self.best_solution], self.coords)
-
+    def animateSolutions(self):
+        animated_visualizer.animateTSP(self.solution_history, self.coords)
 
     def plotLearning(self):
-        '''
-        Plot the fitness through iterations
-        '''
         plt.plot([i for i in range(len(self.weight_list))], self.weight_list)
         plt.ylabel('Weight')
         plt.xlabel('Iteration')
