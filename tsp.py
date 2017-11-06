@@ -7,7 +7,7 @@ def main():
     temp = 1000
     stopping_temp = 0.00000001
     alpha = 0.9995
-    stopping_iter = 100000000
+    stopping_iter = 10000000
 
     '''set the dimensions of the grid'''
     size_width = 200

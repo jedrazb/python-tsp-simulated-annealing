@@ -1,4 +1,4 @@
-Visualisation Simulated Annealing algorithm to solve Travelling Salesman Problem in Python
+Visualisation of Simulated Annealing algorithm to solve Travelling Salesman Problem in Python
 =======
 Using [simulated annealing](https://en.wikipedia.org/wiki/Simulated_annealing) metaheuristic to solve the [travelling salesman problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem), and animating the results. 
 
