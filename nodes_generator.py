@@ -16,5 +16,4 @@ class NodeGenerator:
 
             coords.append((x, y))
 
-        print(coords)
         return coords

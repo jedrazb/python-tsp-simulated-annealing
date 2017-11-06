@@ -1,6 +1,6 @@
 import math
 import random
-import matplotlib.pyplot as plt
+import matplotlib as plt
 import tsp_utils
 
 class SimulatedAnnealing():
