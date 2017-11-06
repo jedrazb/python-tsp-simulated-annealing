@@ -10,7 +10,7 @@ def main():
     alpha = 0.995
     stopping_iter = 100000
 
-    SimulatedAnnealing(nodes, temp, alpha, stopping_temp, stopping_iter)
+    sa = SimulatedAnnealing(nodes, temp, alpha, stopping_temp, stopping_iter)
 
 
 
