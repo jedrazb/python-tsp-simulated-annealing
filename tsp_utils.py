@@ -3,10 +3,7 @@ import random
 import numpy as np
 
 def vectorToMatrix(coords):
-    n = len(coords)
-    mat = [[dist(coords[i], coords[j]) for i in range(n)] for j in range(n)]
-    return mat
-
+    return np.sqrt((np.square(coords[ :, np.newaxis] - coords).sum(axis=2)))
 
 def nearestNeighbourSolution(dist_matrix):
     node = random.randrange(len(dist_matrix))
@@ -22,6 +19,3 @@ def nearestNeighbourSolution(dist_matrix):
         result.append(node)
 
     return result
-
-def dist(coord1, coord2):
-    return np.linalg.norm(coord1 - coord2)
