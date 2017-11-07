@@ -10,7 +10,7 @@ Requires [python3](https://docs.python.org/3/) and [matplotlib](https://matplotl
 
 An example of the resulting route on a TSP with 70 nodes on 200x200 grid.
 
-![example](https://thumbs.gfycat.com/DeficientOpulentHerring-size_restricted.gif)
+![example](https://media.giphy.com/media/3ohjUONfy5IqbaX1kY/giphy.gif)
 
 -------
 
