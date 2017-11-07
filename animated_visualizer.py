@@ -3,7 +3,7 @@ from matplotlib.animation import FuncAnimation
 
 def animateTSP(paths, points):
 
-    ''' let's have approx 2500 frames for animation '''
+    ''' let's have approx 1500 frames for animation '''
     key_frames_mult = len(paths) // 1500
 
     fig, ax = plt.subplots()

@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 class NodeGenerator:
     def __init__(self, width, height, nodesNumber):
@@ -14,6 +15,6 @@ class NodeGenerator:
             x = random.randint(0, self.width)
             y = random.randint(0, self.height)
 
-            coords.append((x, y))
+            coords.append(np.array([x, y]))
 
         return coords
