@@ -1,8 +1,8 @@
 from nodes_generator import NodeGenerator
 from simulated_annealing import SimulatedAnnealing
 
-def main():
 
+def main():
     '''set the simulated annealing algorithm params'''
     temp = 1000
     stopping_temp = 0.00000001
@@ -30,4 +30,5 @@ def main():
     sa.plotLearning()
 
 
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()

@@ -2,10 +2,18 @@ import math
 import random
 import numpy as np
 
+
 def vectorToDistMatrix(coords):
-    return np.sqrt((np.square(coords[ :, np.newaxis] - coords).sum(axis=2)))
+    '''
+    Create the distance matrix
+    '''
+    return np.sqrt((np.square(coords[:, np.newaxis] - coords).sum(axis=2)))
+
 
 def nearestNeighbourSolution(dist_matrix):
+    '''
+    Computes the initial solution (nearest neighbour strategy)
+    '''
     node = random.randrange(len(dist_matrix))
     result = [node]
 

@@ -11,6 +11,16 @@ class SimulatedAnnealing:
 
             Parameters
             ----------
+            coords: array_like
+                list of coordinates
+            temp: float
+                initial temperature
+            alpha: float
+                rate at which temp decreases
+            stopping_temp: float
+                temerature at which annealing process terminates
+            stopping_iter: int
+                interation at which annealing process terminates
 
         '''
 
@@ -37,17 +47,24 @@ class SimulatedAnnealing:
         print('Intial weight: ', self.curr_weight)
 
     def weight(self, sol):
-        '''Calcuate weight '''
+        '''
+        Calcuate weight
+        '''
         return sum([self.dist_matrix[i, j] for i, j in zip(sol, sol[1:] + [sol[0]])])
 
     def acceptance_probability(self, candidate_weight):
-        ''' Acceptance probability as described in:
-        https://stackoverflow.com/questions/19757551/basics-of-simulated-annealing-in-python '''
+        '''
+        Acceptance probability as described in:
+        https://stackoverflow.com/questions/19757551/basics-of-simulated-annealing-in-python
+        '''
         return math.exp(-abs(candidate_weight - self.curr_weight) / self.temp)
 
     def accept(self, candidate):
-        '''Accept with probability 1 if candidate is better than current,
-        else accept with probability equal to acceptance_probability() '''
+        '''
+        Accept with probability 1 if candidate solution is better than
+        current solution, else accept with probability equal to the
+        acceptance_probability()
+        '''
         candidate_weight = self.weight(candidate)
         if candidate_weight < self.curr_weight:
             self.curr_weight = candidate_weight
@@ -62,6 +79,10 @@ class SimulatedAnnealing:
                 self.curr_solution = candidate
 
     def anneal(self):
+        '''
+        Annealing process with 2-opt
+        described here: https://en.wikipedia.org/wiki/2-opt
+        '''
         while self.temp >= self.stopping_temp and self.iteration < self.stopping_iter:
             candidate = list(self.curr_solution)
             l = random.randint(2, self.sample_size - 1)
