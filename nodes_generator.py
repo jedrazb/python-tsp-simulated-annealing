@@ -11,10 +11,7 @@ class NodeGenerator:
 
         coords = list()
 
-        for i in range(self.nodesNumber):
-            x = random.randint(0, self.width)
-            y = random.randint(0, self.height)
+        xs = np.random.randint(self.width, size=self.nodesNumber)
+        ys = np.random.randint(self.height, size=self.nodesNumber)
 
-            coords.append(np.array([x, y]))
-
-        return coords
+        return np.column_stack((xs, ys))
