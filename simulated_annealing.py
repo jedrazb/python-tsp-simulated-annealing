@@ -30,15 +30,15 @@ class SimulatedAnnealing():
 
 
     def weight(self, sol):
-         return round(sum( [ self.dist_matrix[sol[i-1]][sol[i]] for i in range(1,self.sample_size) ] ) + self.dist_matrix[sol[0]][sol[self.sample_size-1]], 4)
+         return (sum([ self.dist_matrix[sol[i-1]][sol[i]] for i in range(1,self.sample_size)])
+                    + self.dist_matrix[sol[0]][sol[self.sample_size-1]])
 
     ''' Acceptance probability as described in: https://stackoverflow.com/questions/19757551/basics-of-simulated-annealing-in-python '''
     def acceptance_probability(self, candidate_weight):
         return math.exp( -abs(candidate_weight - self.curr_weight) / self.temp)
 
 
-    '''
-    Accept with probability 1 if candidate is better than current, else accept with probability equal to acceptance_probability() '''
+    '''Accept with probability 1 if candidate is better than current, else accept with probability equal to acceptance_probability() '''
     def accept(self, candidate):
         candidate_weight = self.weight(candidate)
         if candidate_weight < self.curr_weight:
@@ -58,6 +58,7 @@ class SimulatedAnnealing():
             candidate = list(self.curr_solution)
             l = random.randint(2, self.sample_size - 1)
             i = random.randint(0, self.sample_size - l)
+
             candidate[i : (i+l)] = reversed(candidate[i : (i+l)])
             self.accept(candidate)
 
@@ -69,13 +70,17 @@ class SimulatedAnnealing():
 
 
         print('Best fitness obtained: ', self.min_weight)
-        print('Improvement over greedy heuristic: ', round(( self.initial_weight - self.min_weight) / (self.initial_weight),4))
+        print('Improvement over greedy heuristic: ',
+                round(( self.initial_weight - self.min_weight) / (self.initial_weight),4) * 100, '%')
 
     def animateSolutions(self):
         animated_visualizer.animateTSP(self.solution_history, self.coords)
 
     def plotLearning(self):
         plt.plot([i for i in range(len(self.weight_list))], self.weight_list)
+        line_init = plt.axhline(y=self.initial_weight, color='r', linestyle='--')
+        line_min = plt.axhline(y=self.min_weight, color='g', linestyle='--')
+        plt.legend([line_init, line_min], ['Initial weight', 'Optimized weight'])
         plt.ylabel('Weight')
         plt.xlabel('Iteration')
         plt.show()

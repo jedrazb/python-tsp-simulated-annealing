@@ -16,6 +16,6 @@ An example of the resulting route on a TSP with 70 nodes on 200x200 grid.
 
 An example of learning progress expressed as the distance of the path over the time
 
-![learning progress](https://i.imgur.com/YBQYtQO.png)
+![learning progress](https://i.imgur.com/5TssVpU.png)
 
 
