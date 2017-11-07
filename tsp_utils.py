@@ -2,7 +2,7 @@ import math
 import random
 import numpy as np
 
-def vectorToMatrix(coords):
+def vectorToDistMatrix(coords):
     return np.sqrt((np.square(coords[ :, np.newaxis] - coords).sum(axis=2)))
 
 def nearestNeighbourSolution(dist_matrix):

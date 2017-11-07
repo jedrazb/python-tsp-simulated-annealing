@@ -4,8 +4,16 @@ import matplotlib.pyplot as plt
 import tsp_utils
 import animated_visualizer
 
-class SimulatedAnnealing():
+
+class SimulatedAnnealing:
     def __init__(self, coords, temp, alpha, stopping_temp, stopping_iter):
+        ''' animate the solution over time
+
+            Parameters
+            ----------
+
+        '''
+
         self.coords = coords
         self.sample_size = len(coords)
         self.temp = temp
@@ -14,7 +22,7 @@ class SimulatedAnnealing():
         self.stopping_iter = stopping_iter
         self.iteration = 1
 
-        self.dist_matrix = tsp_utils.vectorToMatrix(coords)
+        self.dist_matrix = tsp_utils.vectorToDistMatrix(coords)
         self.curr_solution = tsp_utils.nearestNeighbourSolution(self.dist_matrix)
         self.best_solution = self.curr_solution
 
@@ -26,20 +34,20 @@ class SimulatedAnnealing():
 
         self.weight_list = [self.curr_weight]
 
-        print(self.curr_weight)
-
+        print('Intial weight: ', self.curr_weight)
 
     def weight(self, sol):
-         return (sum([ self.dist_matrix[sol[i-1]][sol[i]] for i in range(1,self.sample_size)])
-                    + self.dist_matrix[sol[0]][sol[self.sample_size-1]])
+        '''Calcuate weight '''
+        return sum([self.dist_matrix[i, j] for i, j in zip(sol, sol[1:] + [sol[0]])])
 
-    ''' Acceptance probability as described in: https://stackoverflow.com/questions/19757551/basics-of-simulated-annealing-in-python '''
     def acceptance_probability(self, candidate_weight):
-        return math.exp( -abs(candidate_weight - self.curr_weight) / self.temp)
+        ''' Acceptance probability as described in:
+        https://stackoverflow.com/questions/19757551/basics-of-simulated-annealing-in-python '''
+        return math.exp(-abs(candidate_weight - self.curr_weight) / self.temp)
 
-
-    '''Accept with probability 1 if candidate is better than current, else accept with probability equal to acceptance_probability() '''
     def accept(self, candidate):
+        '''Accept with probability 1 if candidate is better than current,
+        else accept with probability equal to acceptance_probability() '''
         candidate_weight = self.weight(candidate)
         if candidate_weight < self.curr_weight:
             self.curr_weight = candidate_weight
@@ -59,19 +67,17 @@ class SimulatedAnnealing():
             l = random.randint(2, self.sample_size - 1)
             i = random.randint(0, self.sample_size - l)
 
-            candidate[i : (i+l)] = reversed(candidate[i : (i+l)])
-            self.accept(candidate)
+            candidate[i: (i + l)] = reversed(candidate[i: (i + l)])
 
+            self.accept(candidate)
             self.temp *= self.alpha
             self.iteration += 1
-
             self.weight_list.append(self.curr_weight)
             self.solution_history.append(self.curr_solution)
 
-
-        print('Best fitness obtained: ', self.min_weight)
-        print('Improvement over greedy heuristic: ',
-                round(( self.initial_weight - self.min_weight) / (self.initial_weight),4) * 100, '%')
+        print('Minimum weight: ', self.min_weight)
+        print('Improvement: ',
+              round((self.initial_weight - self.min_weight) / (self.initial_weight), 4) * 100, '%')
 
     def animateSolutions(self):
         animated_visualizer.animateTSP(self.solution_history, self.coords)
