@@ -10,10 +10,10 @@ Requires [python3](https://docs.python.org/3/), [matplotlib](https://matplotlib.
 
 An example of the resulting route on a TSP with 70 nodes on 200x200 grid.
 
-![example](https://media.giphy.com/media/3ohjUONfy5IqbaX1kY/giphy.gif)
+<p align="center"><img src="https://media.giphy.com/media/3ohjUONfy5IqbaX1kY/giphy.gif" width="400"></p>
 
 -------
 
 An example of learning progress expressed as the distance of the path over the time
 
-![learning progress](https://i.imgur.com/lk6v1V3.png)
+<p align="center"><img src="https://i.imgur.com/lk6v1V3.png" width="400"></p>
